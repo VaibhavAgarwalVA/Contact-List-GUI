@@ -27,14 +27,13 @@ public class displayAll_GUI extends JFrame{
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setSize(300,200);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setTitle( "Contacts Table" );
-		frame.getContentPane().setLayout(null);
+	//	frame.getContentPane().setLayout(null);
 		
-		topPanel = new JPanel();
-		topPanel.setLayout( new BorderLayout() );
-		frame.getContentPane().add(topPanel);
+//		topPanel = new JPanel();
+//		topPanel.setLayout( new BorderLayout() );
+//		frame.getContentPane().add(topPanel);
 		
 		Vector<String> columns = new Vector<String>();
 		columns.addElement("Type");
@@ -82,10 +81,14 @@ public class displayAll_GUI extends JFrame{
 		}
 		
 		table = new JTable(rows,columns);
+		table.setBounds(427, 31, -399, 229);
 		
 		scrollPane = new JScrollPane( table );
-		topPanel.add( scrollPane, BorderLayout.CENTER );
+		//topPanel.add( scrollPane, BorderLayout.CENTER );
+		frame.add(scrollPane);
 		
-		table.setBounds(427, 31, -399, 229);
+		frame.setSize(600,400);
+		frame.setVisible(true);
+		
 	}
 }
