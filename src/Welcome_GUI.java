@@ -2,11 +2,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.*;
+import java.util.*;
 
-public class Welcome_GUI {
+public class Welcome_GUI implements java.io.Serializable{
 
 	public JFrame frame;
 
@@ -24,7 +27,7 @@ public class Welcome_GUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblContactList = new JLabel("Contact List");
@@ -84,6 +87,103 @@ public class Welcome_GUI {
 		JButton btnExit = new JButton("EXIT !");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try{	
+					FileOutputStream fileOut = new FileOutputStream("prodata.ser");
+					ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(fileOut));
+					out.writeObject(Run.pro);
+					out.close();
+					fileOut.close();
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				try{	
+					FileOutputStream fileOut = new FileOutputStream("casdata.ser");
+					ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(fileOut));
+					out.writeObject(Run.cas);
+					out.close();
+					fileOut.close();
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				try{	
+					FileOutputStream fileOut = new FileOutputStream("perdata.ser");
+					ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(fileOut));
+					out.writeObject(Run.per);
+					out.close();
+					fileOut.close();
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				try{	
+					FileOutputStream fileOut = new FileOutputStream("reldata.ser");
+					ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(fileOut));
+					out.writeObject(Run.rel);
+					out.close();
+					fileOut.close();
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				try{
+					FileInputStream fileIn = new FileInputStream("reldata.ser");
+		     	  	ObjectInputStream in = null; 
+		  			File file = new File("reldata.ser");
+		  			boolean isEmpty = file.length()<10;
+		    	   	if(!isEmpty){
+		    	  		in = new ObjectInputStream(new BufferedInputStream(fileIn));
+		    	   		Run.rel = (Vector<Relatives>) in.readObject();
+		    	   	}
+					if(in!=null){
+						in.close();
+					}
+					fileIn.close();
+				 
+				 	fileIn = new FileInputStream("perdata.ser");
+		     	  	in = null; 
+		  			file = new File("perdata.ser");
+		  			isEmpty = file.length()<10;
+		    	   	if(!isEmpty){
+		    	  		in = new ObjectInputStream(new BufferedInputStream(fileIn));
+		    	   		Run.per = (Vector<Personal>) in.readObject();
+		    	   	}
+					if(in!=null){
+						in.close();
+					}
+					fileIn.close();
+					
+					fileIn = new FileInputStream("prodata.ser");
+		     	  	in = null; 
+		  			file = new File("prodata.ser");
+		  			isEmpty = file.length()<10;
+		    	   	if(!isEmpty){
+		    	  		in = new ObjectInputStream(new BufferedInputStream(fileIn));
+		    	   		Run.pro = (Vector<Professional>) in.readObject();
+		    	   	}
+					if(in!=null){
+						in.close();
+					}
+					fileIn.close();
+					
+					fileIn = new FileInputStream("casdata.ser");
+		     	  	in = null; 
+		  			file = new File("casdata.ser");
+		  			isEmpty = file.length()<10;
+		    	   	if(!isEmpty){
+		    	  		in = new ObjectInputStream(new BufferedInputStream(fileIn));
+		    	   		Run.cas = (Vector<Casual>) in.readObject();
+		    	   	}
+					if(in!=null){
+						in.close();
+					}
+					fileIn.close();
+				}
+				catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Error in file handling");
+				}
 				frame.setVisible(false);
 			}
 		});
