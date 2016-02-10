@@ -42,7 +42,7 @@ public class displayRel_GUI {
 		frame.getContentPane().add(lblEmailId);
 		
 		JLabel lblContext = new JLabel("Last meeting");
-		lblContext.setBounds(89, 151, 70, 15);
+		lblContext.setBounds(89, 151, 113, 15);
 		frame.getContentPane().add(lblContext);
 		
 		JLabel lblDateOfMeeting = new JLabel("Date of birth");
